@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import StarBg from "./Components/Rewards/HeroSection/StarBg";
+import Header from "./Components/Rewards/Header/Header";
+import NavBar from "./Components/Rewards/NavBar/NavBar";
+import Body from "./Components/Rewards/Body/Body";
+import Footer from "./Components/Rewards/Footer/Footer";
+import {
+  BrowserRouter as ReactRouter,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 
-function App() {
+interface Props {}
+
+const App: React.FC<Props> = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ReactRouter>
+      <NavBar />
+      <Header />
+      <Switch>
+        <Redirect exact from="/" to="/rewards" />
+        <Route exact path="/rewards">
+          <StarBg />
+          <Body />
+        </Route>
+        <Route exact path="/gift"></Route>
+        <Route path="*">Page Not Found</Route>
+      </Switch>
+      <Footer />
+    </ReactRouter>
   );
-}
+};
 
-export default App;
+App.defaultProps = {};
+
+export default React.memo(App);
