@@ -9,7 +9,7 @@ interface Props {
 const TabList: React.FC<Props> = ({ children }) => {
   if (typeof children !== typeof Tab) {
     throw (
-      "Passed tag is invalid tag pass Tab tag. You have passed " +
+      "Passed tag is invalid tag. Pass Tab tag. You have passed " +
       typeof children
     );
   }
@@ -28,7 +28,7 @@ const TabList: React.FC<Props> = ({ children }) => {
               return (
                 <div
                   key={index}
-                  className="flex-1 px-2 py-4 text-center cursor-pointer"
+                  className="relative z-0 flex-1 px-2 py-4 text-center cursor-pointer"
                   onClick={() => setCurrentTabIndex(index)}
                 >
                   {child.props.title}
@@ -41,12 +41,13 @@ const TabList: React.FC<Props> = ({ children }) => {
             className={`absolute -mt-1 h-1 ease-in-out duration-300 bg-secondary-dark`}
             style={{
               width: starWidth + "%",
-              left: starWidth * currentTabIndex + "%",
+              // left: starWidth * currentTabIndex + "%",
+              transform: `translateX(${currentTabIndex * 100}%)`,
             }}
           ></div>
         </div>
       </div>
-      <div className="relative shadow-inner h-72 bg-primary-dark">
+      <div className="shadow-inner md:h-80 h-96 bg-primary-dark">
         {children.map((child, index) => {
           return (
             <Transition.Root
@@ -60,23 +61,7 @@ const TabList: React.FC<Props> = ({ children }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div>
-                <img
-                  src={child.props.source}
-                  className="absolute inset-0 mx-auto text-center md:flex max-h-64 "
-                  alt="coffee material"
-                />
-                <dl className="p-5 mt-3 space-y-5 text-center md:place-self-center md:px-16 md:flex-1 md:text-left md:flex md:flex-col">
-                  <dt className="text-xl font-semibold smMd:text-2xl">
-                    Customize your drink
-                  </dt>
-                  <dd className="text-sm md:text-base">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quod nobis ullam illo, nihil similique explicabo nam sequi
-                    cumque consectetur eius!
-                  </dd>
-                </dl>
-              </div>
+              <div className="relative">{child.props.children}</div>
             </Transition.Root>
           );
         })}

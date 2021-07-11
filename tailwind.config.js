@@ -25,16 +25,22 @@ module.exports = {
                 bgSmall: "50%",
                 imgS: "56px"
             },
+            maxHeight: {
+                medium: "60%",
+            },
             width: {
                 bgSmall: "50%",
                 verySm: "2px",
+                "sidebar": "74%"
             },
             maxWidth: {
                 small: "50px",
                 medium: "110px"
             },
             padding: {
-                "eighty": "80%"
+                "eighty": "80%",
+                "fifty": "50%",
+                "forty-eight": "48%",
             },
             screens: {
                 smMd: "375px",

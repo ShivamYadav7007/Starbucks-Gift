@@ -1,12 +1,22 @@
 import React, { useState } from "react";
+import ButtonText from "../../sharedComponents/ButtonText";
 import SideMenu from "../../sharedComponents/SideMenu/SideMenu";
+import NavButtons from "./NavButtons";
+import NavFindStore from "./NavFindStore";
+import NavMenuItems from "./NavMenuItems";
 
 interface Props {}
 
 const NavBar: React.FC<Props> = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const navBarWidth = isMenuOpen ? "calc(100% + 15px)" : "100%";
+
   return (
-    <div className="flex justify-between px-3 pt-3 bg-white shadow-xl h-18 full:sticky full:-top-0">
+    <div
+      className="relative z-10 flex justify-between px-3 pt-3 bg-white shadow-xl h-18 full:sticky full:-top-0"
+      style={{ width: navBarWidth }}
+    >
       <div className="flex flex-1">
         <svg
           className="max-h-12"
@@ -26,62 +36,40 @@ const NavBar: React.FC<Props> = (props) => {
           </g>
         </svg>
         <div className="justify-between hidden space-x-6 font-semibold tracking-wider mdLg:flex">
-          <a
-            href="https://devslane.com"
-            className="py-3 transition duration-300 ease-in-out cursor-pointer hover:text-green-700"
-          >
-            MENU
-          </a>
-          <a
-            href="https://devslane.com"
-            className="py-3 transition duration-300 ease-in-out border-b-4 border-green-700 cursor-pointer hover:text-green-700"
-          >
-            REWARDS
-          </a>
-          <a
-            href="https://devslane.com"
-            className="py-3 transition duration-300 ease-in-out cursor-pointer hover:text-green-700"
-          >
-            GIFT CARDS
-          </a>
+          <NavMenuItems title="MENU" link="https://devslane.com" />
+          <NavMenuItems
+            title="REWARDS"
+            link="https://devslane.com"
+            className="border-b-4 border-green-700"
+          />
+          <NavMenuItems title="MENU" link="https://devslane.com" />
         </div>
       </div>
       <div className="justify-between flex-1 hidden max-w-xs py-3 space-x-6 mdLg:flex">
-        <h3 className="flex space-x-2 place-items-center ">
-          <svg
-            viewBox="0 0 24 24"
-            width="24px"
-            height="24px"
-            preserveAspectRatio="xMidYMid meet"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M12,11.475 C10.5214286,11.475 9.32142857,10.299 9.32142857,8.85 C9.32142857,7.401 10.5214286,6.225 12,6.225 C13.4785714,6.225 14.6785714,7.401 14.6785714,8.85 C14.6785714,10.299 13.4785714,11.475 12,11.475 M12,1.5 C7.85357143,1.5 4.5,4.7865 4.5,8.85 C4.5,14.3625 12,22.5 12,22.5 C12,22.5 19.5,14.3625 19.5,8.85 C19.5,4.7865 16.1464286,1.5 12,1.5"></path>
-          </svg>
-          <a
-            href="https://devslane.com"
-            className="text-sm cursor-pointer hover:text-green-700"
-          >
-            Find a store
-          </a>
-        </h3>
+        <NavFindStore />
         <div>
-          <button className="w-20 transition duration-500 ease-in-out border-2 border-black rounded-full focus:outline-none hover:bg-gray-100">
-            <p className="p-2 text-sm font-medium">Sign in</p>
-          </button>
+          <NavButtons className="bg-white border border-black">
+            <ButtonText title="Sign in" />
+          </NavButtons>
         </div>
         <div>
-          <button className="w-20 transition duration-500 ease-in-out bg-black border-2 border-black rounded-full focus:outline-none hover:bg-gray-700">
-            <p className="p-2 text-sm font-medium text-white">Join now</p>
-          </button>
+          <NavButtons className="bg-black border border-black">
+            <ButtonText title="Join now" className="text-white" />
+          </NavButtons>
         </div>
       </div>
       <svg
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="mt-3 text-gray-500 cursor-pointer fill-current mdLg:hidden"
+        onClick={
+          isAnimating
+            ? undefined
+            : () => {
+                setIsMenuOpen(true);
+              }
+        }
+        className={`p-3 text-gray-500 rounded-full cursor-pointer fill-current transform ease-in-out duration-300 hover:bg-gray-200 mdLg:hidden`}
         viewBox="0 0 24 24"
-        width="24px"
-        height="24px"
+        width="48px"
+        height="48px"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
         focusable="false"
@@ -91,7 +79,13 @@ const NavBar: React.FC<Props> = (props) => {
         <path d="M21,18.9H3c-0.5,0-0.9-0.4-0.9-0.9s0.4-0.9,0.9-0.9h18c0.5,0,0.9,0.4,0.9,0.9S21.5,18.9,21,18.9z"></path>
         <circle fill="transparent" cx="50%" cy="50%" r="75%"></circle>
       </svg>
-      <SideMenu open={isMenuOpen} close={() => setIsMenuOpen(false)} />
+
+      <SideMenu
+        beforeLeave={() => setIsAnimating(true)}
+        afterLeave={() => setIsAnimating(false)}
+        open={isMenuOpen}
+        close={() => setIsMenuOpen(false)}
+      />
     </div>
   );
 };
