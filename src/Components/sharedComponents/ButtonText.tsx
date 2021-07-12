@@ -6,11 +6,7 @@ interface Props {
 }
 
 const ButtonText: React.FC<Props> = ({ title, className }) => {
-  return (
-    <p className={`font-medium text-sm hover:text-green-700 ${className}`}>
-      {title}
-    </p>
-  );
+  return <p className={`font-medium text-sm ${className}`}>{title}</p>;
 };
 
 ButtonText.defaultProps = {};

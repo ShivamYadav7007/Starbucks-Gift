@@ -1,6 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
+import NavFindStore from "../../Rewards/NavBar/NavFindStore";
 import NavMenuItems from "../../Rewards/NavBar/NavMenuItems";
+import JoinNow from "../ActionButtons/JoinNow";
+import SignIn from "../ActionButtons/SignIn";
 
 interface Props {
   open: boolean;
@@ -42,8 +45,8 @@ const SideMenu: React.FC<Props> = ({
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <div className="fixed bottom-0 right-0 z-20 pt-5 text-xl bg-white shadow-inner w-sidebar top-18">
-              <div className="flex flex-col p-5 space-y-5">
+            <div className="fixed bottom-0 right-0 z-20 text-xl bg-white shadow-inner w-sidebar top-18">
+              <div className="flex flex-col p-8 space-y-3">
                 <div className="flex justify-between cursor-pointer">
                   <NavMenuItems
                     title="Menu"
@@ -65,13 +68,21 @@ const SideMenu: React.FC<Props> = ({
                 <NavMenuItems
                   title="Rewards"
                   link="https://devslane.com"
-                  className="text-xl hover:text-black"
+                  className="text-lg hover:text-black"
                 />
                 <NavMenuItems
                   title="Gift Cards"
                   link="https://devslane.com"
-                  className="text-xl hover:text-black"
+                  className="text-lg hover:text-black"
                 />
+              </div>
+              <hr className="w-48 mx-auto border mb-7" />
+              <div className="px-6">
+                <div className="flex max-w-xs">
+                  <SignIn />
+                  <JoinNow className="ml-5" />
+                </div>
+                <NavFindStore className="mt-5" />
               </div>
             </div>
           </Transition.Child>

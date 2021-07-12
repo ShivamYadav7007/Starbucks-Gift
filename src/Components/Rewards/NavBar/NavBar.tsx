@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import JoinNow from "../../sharedComponents/ActionButtons/JoinNow";
+import SignIn from "../../sharedComponents/ActionButtons/SignIn";
 import ButtonText from "../../sharedComponents/ButtonText";
 import SideMenu from "../../sharedComponents/SideMenu/SideMenu";
 import NavButtons from "./NavButtons";
@@ -47,16 +49,8 @@ const NavBar: React.FC<Props> = (props) => {
       </div>
       <div className="justify-between flex-1 hidden max-w-xs py-3 space-x-6 mdLg:flex">
         <NavFindStore />
-        <div>
-          <NavButtons className="bg-white border border-black">
-            <ButtonText title="Sign in" />
-          </NavButtons>
-        </div>
-        <div>
-          <NavButtons className="bg-black border border-black">
-            <ButtonText title="Join now" className="text-white" />
-          </NavButtons>
-        </div>
+        <SignIn />
+        <JoinNow />
       </div>
       <svg
         onClick={

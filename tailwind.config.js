@@ -31,7 +31,7 @@ module.exports = {
             width: {
                 bgSmall: "50%",
                 verySm: "2px",
-                "sidebar": "74%"
+                sidebar: "80%"
             },
             maxWidth: {
                 small: "50px",
